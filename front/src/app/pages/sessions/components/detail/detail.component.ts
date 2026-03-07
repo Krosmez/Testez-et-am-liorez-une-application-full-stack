@@ -1,20 +1,21 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Teacher } from '../../../../core/models/teacher.interface';
-import { SessionService } from '../../../../core/service/session.service';
-import { TeacherService } from '../../../../core/service/teacher.service';
+
+import { MaterialModule } from '../../../../shared/material.module';
 import { Session } from '../../../../core/models/session.interface';
 import { SessionApiService } from '../../../../core/service/session-api.service';
-import { MaterialModule } from "../../../../shared/material.module";
-import { CommonModule } from "@angular/common";
+import { SessionService } from '../../../../core/service/session.service';
+import { Teacher } from '../../../../core/models/teacher.interface';
+import { TeacherService } from '../../../../core/service/teacher.service';
 
 @Component({
   selector: 'app-detail',
   imports: [CommonModule, MaterialModule],
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
   public session: Session | undefined;
@@ -47,21 +48,22 @@ export class DetailComponent implements OnInit {
   }
 
   public delete(): void {
-    this.sessionApiService
-      .delete(this.sessionId)
-      .subscribe((_: any) => {
-          this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
-          this.router.navigate(['sessions']);
-        }
-      );
+    this.sessionApiService.delete(this.sessionId).subscribe((_: any) => {
+      this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
+      this.router.navigate(['sessions']);
+    });
   }
 
   public participate(): void {
-    this.sessionApiService.participate(this.sessionId, this.userId).subscribe(_ => this.fetchSession());
+    this.sessionApiService
+      .participate(this.sessionId, this.userId)
+      .subscribe((_) => this.fetchSession());
   }
 
   public unParticipate(): void {
-    this.sessionApiService.unParticipate(this.sessionId, this.userId).subscribe(_ => this.fetchSession());
+    this.sessionApiService
+      .unParticipate(this.sessionId, this.userId)
+      .subscribe((_) => this.fetchSession());
   }
 
   private fetchSession(): void {
@@ -69,11 +71,12 @@ export class DetailComponent implements OnInit {
       .detail(this.sessionId)
       .subscribe((session: Session) => {
         this.session = session;
-        this.isParticipate = session.users.some(u => u === this.sessionService.sessionInformation!.id);
+        this.isParticipate = session.users.some(
+          (u) => u === this.sessionService.sessionInformation!.id,
+        );
         this.teacherService
           .detail(session.teacher_id.toString())
-          .subscribe((teacher: Teacher) => this.teacher = teacher);
+          .subscribe((teacher: Teacher) => (this.teacher = teacher));
       });
   }
-
 }
