@@ -27,6 +27,10 @@ public class SessionService {
     }
 
     public void delete(Long id) {
+        Session session = this.sessionRepository.findById(id).orElse(null);
+        if (session == null) {
+            throw new NotFoundException();
+        }
         this.sessionRepository.deleteById(id);
     }
 
@@ -71,7 +75,8 @@ public class SessionService {
             throw new BadRequestException();
         }
 
-        session.setUsers(session.getUsers().stream().filter(user -> !user.getId().equals(userId)).collect(Collectors.toList()));
+        session.setUsers(
+                session.getUsers().stream().filter(user -> !user.getId().equals(userId)).collect(Collectors.toList()));
 
         this.sessionRepository.save(session);
     }
