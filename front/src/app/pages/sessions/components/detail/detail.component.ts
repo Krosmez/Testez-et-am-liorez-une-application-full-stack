@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 import { MaterialModule } from '../../../../shared/material.module';
 import { Session } from '../../../../core/models/session.interface';
@@ -32,51 +34,70 @@ export class DetailComponent implements OnInit {
   private teacherService = inject(TeacherService);
   private matSnackBar = inject(MatSnackBar);
   private router = inject(Router);
-
+  private destroy$ = new Subject<void>();
   constructor() {
     this.sessionId = this.route.snapshot.paramMap.get('id')!;
     this.isAdmin = this.sessionService.sessionInformation!.admin;
     this.userId = this.sessionService.sessionInformation!.id.toString();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetchSession();
   }
 
-  public back() {
+  public back(): void {
     window.history.back();
   }
 
   public delete(): void {
-    this.sessionApiService.delete(this.sessionId).subscribe((_: any) => {
-      this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
-      this.router.navigate(['sessions']);
-    });
+    this.sessionApiService
+      .delete(this.sessionId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((): void => {
+        this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
+        this.router.navigate(['sessions']);
+      });
   }
 
   public participate(): void {
     this.sessionApiService
       .participate(this.sessionId, this.userId)
-      .subscribe((_) => this.fetchSession());
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((): void => {
+        this.fetchSession();
+      });
   }
 
   public unParticipate(): void {
     this.sessionApiService
       .unParticipate(this.sessionId, this.userId)
-      .subscribe((_) => this.fetchSession());
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((): void => {
+        this.fetchSession();
+      });
   }
 
   private fetchSession(): void {
     this.sessionApiService
       .detail(this.sessionId)
-      .subscribe((session: Session) => {
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((session: Session): void => {
         this.session = session;
         this.isParticipate = session.users.some(
-          (u) => u === this.sessionService.sessionInformation!.id,
+          (u: number): boolean =>
+            u === this.sessionService.sessionInformation!.id,
         );
         this.teacherService
           .detail(session.teacher_id.toString())
-          .subscribe((teacher: Teacher) => (this.teacher = teacher));
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((teacher: Teacher): void => {
+            this.teacher = teacher;
+          });
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
