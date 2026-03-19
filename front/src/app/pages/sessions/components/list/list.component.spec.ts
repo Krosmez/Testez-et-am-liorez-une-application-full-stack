@@ -1,9 +1,10 @@
-import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/core/service/session.service';
+import { expect } from '@jest/globals';
 
 import { ListComponent } from './list.component';
 
@@ -13,17 +14,18 @@ describe('ListComponent', () => {
 
   const mockSessionService = {
     sessionInformation: {
-      admin: true
-    }
-  }
+      admin: true,
+    },
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListComponent],
-      imports: [HttpClientModule, MatCardModule, MatIconModule],
-      providers: [{ provide: SessionService, useValue: mockSessionService }]
-    })
-      .compileComponents();
+      imports: [ListComponent, HttpClientModule, MatCardModule, MatIconModule],
+      providers: [
+        { provide: SessionService, useValue: mockSessionService },
+        { provide: ActivatedRoute, useValue: {} },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
