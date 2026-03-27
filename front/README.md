@@ -20,7 +20,6 @@ Launch Front-end:
 
 > npm run start;
 
-
 ### Test
 
 #### E2E
@@ -46,3 +45,13 @@ Launching test:
 for following change:
 
 > npm run test:watch
+
+## Code coverage
+
+### Unitary test
+
+![coverage-jest.png](src\assets\coverage-jest.png)
+
+### E2E code coverage
+
+![coverage-e2e.png](src\assets\coverage_e2e.png)

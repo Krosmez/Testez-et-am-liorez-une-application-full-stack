@@ -133,3 +133,15 @@ Importez la collection Postman
 La documentation de Postman se trouve ici :
 
 https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
+
+## Couverture de code
+
+![coverage-back.png](pictures/coverage-back.png)
+
+Pour lancer les tests faite un 
+ ```
+    mvn clean test
+```
+
+Ceci vous génèrera un fichier site dans vos target, vous pourrez ensuite ouvrir l'index.html afin de voir le site de couverture de code généré par 
+Jacoco.
