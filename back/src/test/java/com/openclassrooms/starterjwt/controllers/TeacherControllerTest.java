@@ -1,6 +1,5 @@
-package com.openclassroom.starterjwt.controllers;
+package com.openclassrooms.starterjwt.controllers;
 
-import com.openclassrooms.starterjwt.controllers.TeacherController;
 import com.openclassrooms.starterjwt.dto.TeacherDto;
 import com.openclassrooms.starterjwt.mapper.TeacherMapper;
 import com.openclassrooms.starterjwt.models.Teacher;

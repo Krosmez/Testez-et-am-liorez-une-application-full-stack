@@ -1,6 +1,5 @@
-package com.openclassroom.starterjwt.controllers;
+package com.openclassrooms.starterjwt.controllers;
 
-import com.openclassrooms.starterjwt.controllers.UserController;
 import com.openclassrooms.starterjwt.dto.UserDto;
 import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.exception.UnauthorizedException;

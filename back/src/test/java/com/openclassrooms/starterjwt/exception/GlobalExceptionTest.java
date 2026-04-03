@@ -1,9 +1,5 @@
-package com.openclassroom.starterjwt.exception;
+package com.openclassrooms.starterjwt.exception;
 
-import com.openclassrooms.starterjwt.exception.BadRequestException;
-import com.openclassrooms.starterjwt.exception.GlobalException;
-import com.openclassrooms.starterjwt.exception.NotFoundException;
-import com.openclassrooms.starterjwt.exception.UnauthorizedException;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

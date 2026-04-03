@@ -1,6 +1,5 @@
-package com.openclassroom.starterjwt.controllers;
+package com.openclassrooms.starterjwt.controllers;
 
-import com.openclassrooms.starterjwt.controllers.SessionController;
 import com.openclassrooms.starterjwt.dto.SessionDto;
 import com.openclassrooms.starterjwt.exception.BadRequestException;
 import com.openclassrooms.starterjwt.exception.NotFoundException;
