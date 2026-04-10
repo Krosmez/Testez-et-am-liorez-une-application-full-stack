@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@Profile("!test")
 public class WebSecurityConfig {
 
   @Autowired
@@ -51,6 +50,7 @@ public class WebSecurityConfig {
   }
 
   @Bean
+  @Profile("!test")
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.cors(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
