@@ -1,6 +1,5 @@
-package com.openclassroom.starterjwt.security;
+package com.openclassrooms.starterjwt.security;
 
-import com.openclassrooms.starterjwt.security.WebSecurityConfig;
 import com.openclassrooms.starterjwt.security.jwt.AuthTokenFilter;
 import com.openclassrooms.starterjwt.security.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
