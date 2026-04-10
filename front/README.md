@@ -50,8 +50,8 @@ for following change:
 
 ### Unitary test
 
-![coverage-jest.png](src\assets\coverage-jest.png)
+![coverage-jest.png](src/assets/coverage-jest.png)
 
 ### E2E code coverage
 
-![coverage-e2e.png](src\assets\coverage_e2e.png)
+![coverage-e2e.png](src/assets/coverage_e2e.png)
